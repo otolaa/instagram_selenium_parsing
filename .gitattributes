@@ -1,0 +1,9 @@
+*.py linguist-detectable=true
+*.exe linguist-detectable=false
+*.jpg linguist-detectable=false
+*.log linguist-detectable=false
+*.js linguist-detectable=false
+*.html linguist-detectable=false
+*.xml linguist-detectable=false
+*.css linguist-detectable=false
+*.json linguist-detectable=false
