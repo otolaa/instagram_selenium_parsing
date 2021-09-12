@@ -1,5 +1,20 @@
 # Selenium parser instagram
-selenium parsing for instagram in Windows (geckodriver.exe is driver Firefox)
+selenium parsing for instagram in Windows or Linux (geckodriver.exe is driver Firefox)
+
+## Installing Selenium-WebDriver for Python
+```python
+# 1 - update
+pip3 install --upgrade pip
+# 2 - terminal Windows, Linux or Mac
+pip3 install selenium
+# 3 - Installing the geckodriver driver for Firefox Selenium
+# Download geckodriver for Linux, Windows and Mac https://github.com/mozilla/geckodriver/releases/
+# Installing geckodriver on Ubuntu, Debian and ArchLinux 
+wget https://github.com/mozilla/geckodriver/releases/download/v0.29.1/geckodriver-v0.29.1-linux64.tar.gz
+tar -xvzf geckodriver*
+sudo chmod +x geckodriver
+sudo mv geckodriver /usr/local/bin/
+```
 
 ## Program start /instagram_parser.py
 return photos for instagram.com/nasa/
