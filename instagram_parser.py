@@ -37,6 +37,11 @@ def get_url_name(url):
     arr_url = list(filter(None, get_url[0].split('/')))
     return arr_url[len(arr_url)-1]
 
+def get_sort(files_name):
+    files_name_list = files_name.split('.')
+    files_name_sort = list(filter(None, files_name_list[0].split('_')))
+    return files_name_sort[0]
+
 def get_files_url(url, pth = None):
     pth = 'img' if pth is None else pth    
     files_img_path = str(pth + '/' + get_url_name(url))
@@ -97,7 +102,8 @@ def get_list_photo(browser, *args):
     list_photo = []
     for i, tag in enumerate(imgs):
         src_ = tag.get_attribute('src')
-        list_photo.append([i, tag.get_attribute('alt'), get_url_name(src_), src_])
+        files_name = get_url_name(src_)
+        list_photo.append([get_sort(files_name), tag.get_attribute('alt'), files_name, src_])
         # ---- add photo files ----
         get_files_url(src_, dir_path_img)
     return list_photo
@@ -105,39 +111,52 @@ def get_list_photo(browser, *args):
 # the main function parsin for instagram
 @benchmark
 def main(http_url_page, dir_path, dir_path_img, *args):
+    """A method for scrolling the page."""
 
     # Specify the full path to geckodriver.exe for Windows
     options = Options()
     options.headless = False 
-    driver = Firefox(options=options, executable_path=r'D:\OSPanel\domains\python\instagram_selenium_parsing\geckodriver.exe')    
+    driver = Firefox(options=options, executable_path=r'.\geckodriver.exe')    
     driver.get(http_url_page)
 
-    # click button more
-    # stackoverflow.com/questions/26566799/wait-until-page-is-loaded-with-selenium-webdriver-for-python
-    # selenium-python.readthedocs.io/waits.html
-    # _4emnV  -- the class select in ajax indicator
-     
-    if get_buttom(driver) is True:         
-        for i in range(10):            
+    # click button more and A method for scrolling the page.
+    # stackoverflow.com/questions/48850974/selenium-scroll-to-end-of-page-in-dynamically-loading-webpage
+    if get_buttom(driver) is True:
+        # Get scroll height
+        last_height = driver.execute_script("return document.body.scrollHeight")
+
+        while True:            
             if get_dialog(driver) is True:
-                # print(i)
-                break
-            else:
-                # print(i)
-                driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                # if is set element .RnEpo._Yhr4
+                driver.execute_script("""
+                        document.getElementsByTagName("body")[0].style = "";
+                        document.getElementsByClassName("RnEpo")[0].style = "display: none; visibility: hidden;";
+                    """)
                 time.sleep(2)
-            # add photo json
-            set_add_json(get_list_photo(driver, dir_path_img), str(dir_path + '/alt_url.json'))   
+            
+            # Scroll down to the bottom.
+            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            time.sleep(2)
+            
+            # add photo json in files *.json
+            set_add_json(get_list_photo(driver, dir_path_img), str(dir_path + '/alt_url.json'))
+
+            # Calculate new scroll height and compare with last scroll height.
+            new_height = driver.execute_script("return document.body.scrollHeight")
+            if new_height == last_height:
+                break
+            last_height = new_height
  
     print(driver.title)  
     print('{} photos'.format(len(load_json(str(dir_path + '/alt_url.json')))))
+    print('{} height document windows'.format(last_height))
 
     driver.close()
     # driver.quit()
 
 if __name__ == '__main__':
     dir_main = "parsing"
-    url_ = "https://www.instagram.com/nasa/?hl=ru"
+    url_ = "https://www.instagram.com/teslamotors/?hl=ru"
     dir_path = str(dir_main + "/" + get_url_name(url_))
     dir_path_img = str(dir_path +'/images')
     get_dir(dir_main)
