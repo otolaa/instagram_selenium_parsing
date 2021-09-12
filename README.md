@@ -23,6 +23,7 @@ Photo shared by NASA on July 31, 2021 tagging @nasasolarsystem. May be an image 
 ![Photo shared by NASA on July 31, 2021 tagging @nasasolarsystem. May be an image of planet.](https://github.com/otolaa/instagram_selenium_parsing/blob/master/parsing/nasa/images/226906578_193270329486578_4570034023208063196_n.jpg "Photo shared by NASA on July 31, 2021 tagging @nasasolarsystem. May be an image of planet.")
 
 ## 🚗 parsing example instagram.com/teslamotors/
+/parsing/teslamotors/images # the folder photo
 
 ![teslamotors photos](https://github.com/otolaa/instagram_selenium_parsing/blob/master/img/return_teslamotors.jpg "teslamotors photos")
 
