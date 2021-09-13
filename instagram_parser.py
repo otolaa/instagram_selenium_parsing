@@ -71,8 +71,7 @@ def get_buttom(browser, *args):
             browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
             time.sleep(1)
             button.click()
-            time.sleep(2)
-            browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            time.sleep(2)            
             return True
     except Exception as e:
         print(sys.exc_info()[1])
@@ -119,36 +118,41 @@ def main(http_url_page, dir_path, dir_path_img, *args):
     driver = Firefox(options=options, executable_path=r'.\geckodriver.exe')    
     driver.get(http_url_page)
 
-    # click button more and A method for scrolling the page.
-    # stackoverflow.com/questions/48850974/selenium-scroll-to-end-of-page-in-dynamically-loading-webpage
+    # click button more and A method for scrolling the page.    
     if get_buttom(driver) is True:
-        # Get scroll height
-        last_height = driver.execute_script("return document.body.scrollHeight")
+        print('Button is set click')
+    
+    # stackoverflow.com/questions/48850974/selenium-scroll-to-end-of-page-in-dynamically-loading-webpage
+    # Get scroll height
+    last_height = driver.execute_script("return document.body.scrollHeight")
 
-        while True:            
-            if get_dialog(driver) is True:
-                # if is set element .RnEpo._Yhr4
-                driver.execute_script("""
-                        document.getElementsByTagName("body")[0].style = "";
-                        document.getElementsByClassName("RnEpo")[0].style = "display: none; visibility: hidden;";
-                    """)
-                time.sleep(2)
-            
-            # Scroll down to the bottom.
-            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    while True:            
+        if get_dialog(driver) is True:
+            # if is set element .RnEpo._Yhr4
+            driver.execute_script("""
+                    document.getElementsByTagName("body")[0].style = "";
+                    document.getElementsByClassName("RnEpo")[0].style = "display: none; visibility: hidden;";
+                """)
             time.sleep(2)
-            
-            # add photo json in files *.json
-            set_add_json(get_list_photo(driver, dir_path_img), str(dir_path + '/alt_url.json'))
+        
+        # Scroll down to the bottom.
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(2)
+        
+        # add photo json in files *.json
+        set_add_json(get_list_photo(driver, dir_path_img), str(dir_path + '/alt_url.json'))
 
-            # Calculate new scroll height and compare with last scroll height.
-            new_height = driver.execute_script("return document.body.scrollHeight")
-            if new_height == last_height:
-                break
-            last_height = new_height
- 
+        # Calculate new scroll height and compare with last scroll height.
+        new_height = driver.execute_script("return document.body.scrollHeight")
+        if new_height == last_height:
+            break
+        last_height = new_height
+
+    # print log
+    photo_items_ = load_json(str(dir_path + '/alt_url.json'))
+    photo_items_count = len(photo_items_) if photo_items_ is not False else 0    
     print(driver.title)  
-    print('{} photos'.format(len(load_json(str(dir_path + '/alt_url.json')))))
+    print('{} photos'.format(photo_items_count))
     print('{} height document windows'.format(last_height))
 
     driver.close()
@@ -156,7 +160,7 @@ def main(http_url_page, dir_path, dir_path_img, *args):
 
 if __name__ == '__main__':
     dir_main = "parsing"
-    url_ = "https://www.instagram.com/teslamotors/?hl=ru"
+    url_ = "https://www.instagram.com/lmonies2.0/?hl=ru"
     dir_path = str(dir_main + "/" + get_url_name(url_))
     dir_path_img = str(dir_path +'/images')
     get_dir(dir_main)
