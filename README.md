@@ -1,7 +1,7 @@
-# Selenium parser instagram && youtube
+# 🎥 Selenium parser instagram && youtube
 selenium parsing for instagram && youtube in Windows or Linux (geckodriver.exe is driver Firefox)
 
-## Installing Selenium-WebDriver for Python
+## 📸 Installing Selenium-WebDriver for Python
 ```python
 # 1 - update
 pip3 install --upgrade pip
@@ -46,12 +46,12 @@ Photo by Tesla on April 15, 2021. May be an image of outdoors.
 
 ![Photo by Tesla on April 15, 2021. May be an image of outdoors.](https://github.com/otolaa/instagram_selenium_parsing/blob/master/parsing/teslamotors/images/173615457_1172281306533433_4705995220569385300_n.jpg "Photo by Tesla on April 15, 2021. May be an image of outdoors.")
 
-📷: @evoluciontesla
+### 📷: @evoluciontesla
 
 ![evoluciontesla](https://github.com/otolaa/instagram_selenium_parsing/blob/master/parsing/teslamotors/images/50116130_936227483238953_6459376269299057380_n.jpg "evoluciontesla")
 
 
-## Program start /youtube_parser.py
+## 📺 Program start /youtube_parser.py
 selenium parsing for youtube
 
 
