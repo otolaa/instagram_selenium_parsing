@@ -53,3 +53,10 @@ Photo by Tesla on April 15, 2021. May be an image of outdoors.
 
 ## Program start /youtube_parser.py
 selenium parsing for youtube
+
+
+## 🐍 parsing example youtube.com/user/zaemiel/videos
+youtube/zaemiel/video.json
+youtube/zaemiel/images/
+
+![Python ООП](https://github.com/otolaa/instagram_selenium_parsing/blob/master/youtube/zaemiel/images/uk5uB05G3H0.webp "Python ООП")
